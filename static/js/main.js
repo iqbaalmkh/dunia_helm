@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           options: {
               responsive: true,
-              maintainAspectRatio: false,   // 🔥 penting biar resize sesuai container
+              maintainAspectRatio: false,   
               plugins: { legend: { display: false }},
               scales: {
                   y: { ticks: { color: "#ccc" } },
@@ -133,12 +133,11 @@ const closePanelBtn = document.getElementById("closePanelBtn");
 window.openPanel = function (id) {
   if (!panel || !overlay) return;
 
-  panel.classList.remove("hidden");   // tampilkan panel dulu
-  overlay.classList.remove("hidden"); // tampilkan overlay
+  panel.classList.remove("hidden");   
+  overlay.classList.remove("hidden"); 
 
-  // delay sedikit supaya transisi CSS bisa jalan
   setTimeout(() => {
-    panel.classList.add("show");      // trigger transisi masuk
+    panel.classList.add("show");     
   }, 10);
 
   fetch(`/product/${id}/edit`)
@@ -149,11 +148,10 @@ window.openPanel = function (id) {
 };
 
 function closePanel() {
-  panel.classList.remove("show"); // trigger transisi keluar
+  panel.classList.remove("show"); 
   overlay.classList.add("hidden");
 
-  // setelah transisi selesai, sembunyikan sepenuhnya
-  setTimeout(() => panel.classList.add("hidden"), 350); // sama dengan durasi transition
+  setTimeout(() => panel.classList.add("hidden"), 350); 
 }
 
 
@@ -243,7 +241,7 @@ let autoSlideTimer;
 
 function initCarousel() {
     const slides = document.getElementsByClassName("carousel-slide");
-    if (slides.length === 0) return;  // aman dan tidak mematikan script lain
+    if (slides.length === 0) return;  
 
     generateDots();
     showSlide(slideIndex);
@@ -254,7 +252,7 @@ function generateDots() {
     const dotsContainer = document.getElementById("carouselDots");
     const slides = document.getElementsByClassName("carousel-slide");
 
-    dotsContainer.innerHTML = ""; // bersihkan
+    dotsContainer.innerHTML = ""; 
 
     for (let i = 0; i < slides.length; i++) {
         const dot = document.createElement("span");

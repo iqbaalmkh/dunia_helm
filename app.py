@@ -243,7 +243,7 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    user = current_user()  # Sesuai sistem auth kamu (mungkin user_loader / flask_login)
+    user = current_user()  
 
     product_preview = Product.query.order_by(Product.id.desc()).limit(6).all()
     total_products = Product.query.count()
@@ -279,7 +279,7 @@ def dashboard():
     return render_template(
         "system/dashboard.html",
         user=user,
-        role=user.role,              # <=== Tambahkan ini
+        role=user.role,             
         products=product_preview,
         total_products=total_products,
         total_stock=total_stock,
@@ -318,7 +318,7 @@ def products():
         role=user.role,
         products=items,
         title="Data Produk",
-        search=q  # kirim balik ke template
+        search=q 
     )
 
 UPLOAD_FOLDER = 'static/uploads/products'
@@ -587,17 +587,15 @@ def reports():
 
     # 3. DATA PENDUKUNG    
     all_sales = Sale.query.all()
-    # DEBUG: Cek Terminal Anda saat refresh halaman reports
+    # DEBUG: Cek Terminal saat refresh halaman reports
     print(f"DEBUG SYSTEM: Ditemukan {len(all_sales)} transaksi penjualan.")
     revenue_map = defaultdict(float)
 
     for s in all_sales:
         if s.created_at: # Pastikan tanggal tidak null
-            # Format bulan YYYY-MM
             month_key = s.created_at.strftime('%Y-%m')
             
             # Gunakan kolom 'total' yang tersimpan di Sale
-            # Ini lebih aman daripada mengalikan ulang dengan harga produk sekarang
             nominal = float(s.total or 0)
             
             revenue_map[month_key] += nominal
@@ -626,7 +624,6 @@ def reports():
     )
     top_products = [(n, int(s or 0)) for n, s in top_products_query]
 
-    # 4. RENDER TEMPLATE
     return render_template(
         'system/reports.html',
         user=user,
@@ -678,7 +675,6 @@ def add_staff():
 
     if created_at_raw:
         try:
-            # Convert dari format datetime-local HTML
             created_at = datetime.strptime(created_at_raw, "%Y-%m-%dT%H:%M")
         except ValueError:
             created_at = datetime.utcnow()
@@ -740,7 +736,6 @@ def delete_staff(id):
 
 @event.listens_for(Staff, "after_insert")
 def create_user_after_staff_insert(mapper, connection, staff):
-    # Buat username otomatis dari email atau name
     username = staff.name.lower().replace(" ", "")
 
     connection.execute(
@@ -759,8 +754,6 @@ def update_user_after_staff_update(mapper, connection, staff):
     user = User.query.filter_by(username=staff.email).first()
     if user:
         user.role = staff.role
-        # Email/username berubah? Atur jika perlu
-        # user.username = staff.email
         db.session.commit()
 
 @event.listens_for(Staff, "after_delete")
@@ -775,7 +768,6 @@ def delete_user_after_staff_delete(mapper, connection, staff):
 
 @app.route("/change-password", methods=["GET", "POST"])
 def change_password():
-    # pastikan user sudah login
     if "user_id" not in session:
         return redirect(url_for("login"))
 
@@ -786,17 +778,14 @@ def change_password():
         new_password = request.form.get("new_password")
         confirm_password = request.form.get("confirm_password")
 
-        # cek password lama
         if user.password != old_password:
             flash("Password lama salah!", "danger")
             return redirect(url_for("change_password"))
 
-        # cek konfirmasi password
         if new_password != confirm_password:
             flash("Password baru tidak cocok!", "danger")
             return redirect(url_for("change_password"))
 
-        # update password
         user.password = new_password
         db.session.commit()
 
@@ -815,7 +804,6 @@ def forgot_password():
             flash("Username tidak ditemukan!", "danger")
             return redirect(url_for("forgot_password"))
 
-        # simpan id user sementara
         session["reset_user_id"] = user.id
 
         return redirect(url_for("reset_password"))
@@ -848,7 +836,6 @@ def reset_password():
     return render_template("auth/reset_password.html", user=user)
 
 
-# Simple API for frontend stock check
 @app.route('/api/products')
 def api_products():
     items = Product.query.all()

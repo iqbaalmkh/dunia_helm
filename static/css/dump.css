@@ -48,9 +48,9 @@ body{
 .sidebar-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;   /* brand kiri, hamburger kanan */
+  justify-content: space-between;  
   padding: 16px 20px;
-  height: 60px;                     /* stabil supaya icon sejajar */
+  height: 60px;                    
 }
 /* COLLAPSED SIDEBAR */
 .sidebar.collapsed {
@@ -95,7 +95,7 @@ body{
 
 /* halaman utama ikut bergeser */
 .app.sidebar-collapsed .main {
-  margin-left: 110px !important;      /* menyesuaikan width sidebar collapsed */
+  margin-left: 110px !important;    
 }
 
 /* Ketika sidebar NORMAL / tidak collapsed */
@@ -169,7 +169,7 @@ body{
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #d6d9e3;
-  border-radius: 8px;        /* <--- radius di sini */
+  border-radius: 8px;
   font-size: 14px;
   background: #fff;
   outline: none;
@@ -279,7 +279,7 @@ body{
 
 /* GRAPH CARD */
 .chart-wrapper {
-  height: 350px;       /* bebas mau 250, 400, dll */
+  height: 350px;
 }
 
 .chart-wrapper canvas {
