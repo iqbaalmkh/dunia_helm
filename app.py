@@ -13,7 +13,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# lokasi simpan gambar
 UPLOAD_FOLDER = os.path.join('static', 'uploads', 'products')
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
