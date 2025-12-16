@@ -27,18 +27,18 @@ db = SQLAlchemy(app)
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # plain for demo only
-    role = db.Column(db.String(32), nullable=False) # owner/kasir/marketing
+    password = db.Column(db.String(128), nullable=False)  
+    role = db.Column(db.String(32), nullable=False) 
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(140), nullable=False)
-    sku = db.Column(db.String(64), unique=True, nullable=True)
+    sku = db.Column(db.String(64), unique=True, nullable=True) 
     price = db.Column(db.Float, nullable=False)
     category = db.Column(db.String(64), nullable=True)
     stock = db.Column(db.Integer, default=0)
     description = db.Column(db.Text, nullable=True)
-    image = db.Column(db.String(255), nullable=True)   # <---- NEW
+    image = db.Column(db.String(255), nullable=True)  
 
 def save_image(file):
     if not file:
