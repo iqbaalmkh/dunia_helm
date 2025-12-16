@@ -1,0 +1,25 @@
+{% extends "system/base_login.html" %}
+{% block content %}
+  <a href="{{ url_for('index') }}" class="btn back-btn">← Kembali</a>
+
+  <div class="center-wrapper">
+    <div class="card center-card">
+      <h2>Selamat Datang!</h2>
+      <form method="post">
+        <label>Username
+          <input type="text" name="username" required />
+        </label>
+        <label>Password
+          <input type="password" name="password" required />
+        </label>
+        <a href="{{ url_for('forgot_password') }}" class="forgotbtn">Lupa Password?</a>
+        <div class="actions">
+          <button class="btn primary" type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% if error %}
+  <div class="alert danger">{{ error }}</div>
+  {% endif %}
+{% endblock %}

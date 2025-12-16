@@ -1,0 +1,95 @@
+{% extends "system/base.html" %}
+{% block content %}
+<div class="grid">
+  <!-- LEFT SIDE: 4 BOX -->
+  <div class="stats-grid">
+
+    <div class="box stat lefttop">
+      <div class="stat-header">
+        <span class="stat-title">Total Produk</span>
+        <a href="{{ url_for('products')}}" class="stat-icon"><i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="stat-value">{{ total_products }}</div>
+      <div class="stat-sub">This month vs last</div>
+    </div>
+
+    <div class="box stat righttop">
+      <div class="stat-header">
+        <span class="stat-title">Total Stok</span>
+        <a href="{{ url_for('products')}}" class="stat-icon"><i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="stat-value">{{ total_stock }}</div>
+      <div class="stat-sub">This month vs last</div>
+    </div>
+
+    <div class="box stat leftbottom">
+      <div class="stat-header">
+        <span class="stat-title">Total Orders</span>
+        <a href="{{ url_for('sales')}}" class="stat-icon"><i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="stat-value">{{ total_orders }}</div>
+      <div class="stat-sub">This month vs last</div>
+    </div>
+
+    <div class="box stat rightbottom">
+      <div class="stat-header">
+        <span class="stat-title">Keuntungan</span>
+        <a href="{{ url_for('reports')}}" class="stat-icon"><i data-lucide="arrow-up-right"></i></a>
+      </div>
+      <div class="stat-value">Rp {{ "{:,.0f}".format(net_profit or 0) }}</div>
+      <div class="stat-sub">This month vs last</div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDE GRAPH -->
+  <div class="box graph">
+    <div class="graph-header">
+      <h3>Pendapatan</h3>
+      <a href="{{ url_for('reports')}}" class="stat-icon big"><i data-lucide="arrow-up-right"></i></a>
+    </div>
+
+    <div class="chart-wrapper">
+      <canvas id="revenueChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Produk (preview)</h3>
+  <div class="product-list">
+    {% for p in products %}
+      <div class="product">
+        {% if p.image %}
+          <img src="{{ url_for('static', filename='uploads/products/' + p.image) }}" class="product-img">
+        {% else %}
+          <div class="product-image placeholder">No Image</div>
+        {% endif %}
+
+        <div><strong>{{ p.name }}</strong></div>
+        <div class="muted">{{ p.category or '-' }}</div>
+        <div>Rp {{ "{:,.0f}".format(p.price) }}</div>
+        <div class="chip">Stok: {{ p.stock }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="card">
+  <h3>Penjualan Terbaru</h3>
+  <table class="table">
+    <thead><tr><th>Waktu</th><th>Produk</th><th>Qty</th><th>Total</th></tr></thead>
+    <tbody>
+      {% for s in recent_sales %}
+        <tr><td>{{ s.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ s.product.name }}</td><td>{{ s.qty }}</td><td>Rp {{ "{:,.0f}".format(s.total) }}</td></tr>
+      {% else %}
+        <tr><td colspan="4" class="muted">Belum ada transaksi</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+  <script>
+    window.dashboardData = JSON.parse('{{ dashboard_data|tojson|safe }}');
+  </script>
+{% endblock %}

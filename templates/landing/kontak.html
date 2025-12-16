@@ -1,0 +1,43 @@
+{% extends "landing/landing.html" %}
+{% block carousel %}{% endblock %}
+{% block catalog %} 
+<main class="contact-container">
+
+    <div class="contact-wrapper">
+
+        <!-- LEFT: MAP -->
+        <div class="contact-map">
+            <h2>Lokasi Kami</h2>
+
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3955.347259398741!2d109.1261691!3d-7.537053099999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6569d2ff6f007f%3A0x50d3d94433dbcabe!2sDUNIA%20HELM%20Jatilawang!5e0!3m2!1sen!2sid!4v1765171693384!5m2!1sen!2sid"
+                allowfullscreen
+                loading="lazy">
+            </iframe>
+
+            <p class="address">
+                DUNIA HELM Jatilawang<br>
+                Area Sawah, Adisara, Kec. Jatilawang,<br>
+                Kabupaten Banyumas, Jawa Tengah 53174
+            </p>
+        </div>
+
+        <!-- RIGHT: CONTACT -->
+        <div class="contact-info">
+            <h2>Kontak Kami</h2>
+
+            <p class="contact-text">
+                <strong>Telp:</strong> 0897-2342-612<br>
+                <strong>Email:</strong> duniahelm@example.com
+            </p>
+
+            <a href="https://wa.me/628972342612?text=Halo%20saya%20mau%20bertanya" target="_blank" class="wa-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+                Hubungi Kami via WhatsApp
+            </a>
+        </div>
+
+    </div>
+
+</main>
+{% endblock %}

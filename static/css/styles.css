@@ -1,0 +1,14 @@
+/* 1. Base dulu (reset, variabel, font) */
+@import "base.css";
+
+/* 2. Layout utama (app, main, topbar, content) */
+@import "layout.css";
+
+/* 3. Sidebar (nav, collapse, hamburger) */
+@import "sidebar.css";
+
+/* 4. Komponen umum (card, btn, table, alert, chip, forms) */
+@import "component.css";
+
+/* 5. Halaman spesifik / dashboard */
+@import "dashboard.css";

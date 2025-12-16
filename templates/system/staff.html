@@ -1,0 +1,70 @@
+{% extends "system/base.html" %}
+{% block content %}
+
+<div class="card">
+    <div class="flex-between">
+        <h3>Daftar Staf</h3>
+        <button class="btn" id="btnNew">+ Tambah Staff</button>
+    </div>
+
+      <!-- FORM TAMBAH STAFF -->
+    <div id="newForm" class="card hidden">
+        <form method="post" action="{{ url_for('add_staff') }}" enctype="multipart/form-data">
+        <label>Nama <input name="staff_name" required /></label>
+        <label>Posisi</label>
+        <input type="text" value="Staff" disabled class="input-disabled">
+        <!-- Hidden input untuk dikirim ke backend -->
+        <input type="hidden" name="role" value="staff">
+        <label>Email <input name="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required /></label>
+        <label>Phone <input name="phone" type="tel" placeholder="08xxxxxxxxxx" pattern="[0-9]{10,15}" required /></label>
+        <label>Mulai Bekerja <input name="created_at" type="datetime-local" required/></label>
+
+        <div class="actions">
+            <button class="btn primary">Simpan</button>
+        </div>
+        </form>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Posisi</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Mulai Bekerja</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in staff %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.role }}</td>
+                <td>{{ s.email or "-" }}</td>
+                <td>{{ s.phone or "-" }}</td>
+                <td>{{ s.created_at.strftime("%d %b %Y") }}</td>
+                <td>
+                    <button class="btn small" onclick="openStaffPanel('{{ s.id }}')">Kelola</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="staffPanel" class="side-panel hidden">
+  <div class="side-panel-content">
+
+    <button id="closePanelBtn" class="close-btn">✕</button>
+
+    <h3>Kelola Staff</h3>
+
+    <!-- TEMPAT FORM DINAMIS -->
+    <div id="staffPanelContent"></div>
+
+  </div>
+</div>
+
+<div id="overlay" class="overlay hidden" onclick="closePanel()"></div>
+{% endblock %}

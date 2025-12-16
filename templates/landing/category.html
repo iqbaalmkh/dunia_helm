@@ -1,0 +1,96 @@
+{% extends "landing/landing.html" %}
+{% block carousel %}{% endblock %}
+{% block catalog %}
+
+<main class="category-container">
+
+    <!-- HEADER TITLE -->
+    <h2 class="section-title">Kategori: {{ category }}</h2>
+
+    <!-- CATEGORY SWITCH BUTTONS -->
+    <div class="category-switch">
+        {% for cat in categories %}
+            <a href="{{ url_for('category_page', category_name=cat) }}"
+               class="cat-btn {% if cat == category %}active{% endif %}">
+                {{ cat }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+        {% for p in products %}
+            <div class="product-card"
+                onclick="openModal(this)"
+                data-name="{{ p.name }}"
+                data-category="{{ p.category }}"
+                data-price="{{ p.price }}"
+                data-description="{{ p.description | e }}"
+                data-img="{{ url_for('static', filename='uploads/products/' + p.image) if p.image else '' }}">
+                {% if p.image %}
+                    <img src="{{ url_for('static', filename='uploads/products/' + p.image) }}"
+                         class="product-img">
+                {% else %}
+                    <div class="img-placeholder">No Image</div>
+                {% endif %}
+                <h3>{{ p.name }}</h3>
+                <p class="muted">{{ p.category }}</p>
+                <p class="price">Rp {{ "{:,.0f}".format(p.price) }}</p>
+                <a href="https://wa.me/628972342612?text=Halo%20saya%20mau%20beli%20{{p.name}}" 
+                target="_blank"
+                style="text-decoration:none; margin-top:auto; display:flex;">
+                    <div style="
+                        font-size: 13px; 
+                        background:#25D366; 
+                        color:white; 
+                        padding:12px 18px; 
+                        display:inline-flex; 
+                        align-items:center; 
+                        border-radius:6px;
+                        width:100%;
+                        justify-content:center;
+                    ">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                            style="width:20px; margin-right:8px;">
+                        Chat WhatsApp
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+
+        {% if products|length == 0 %}
+            <p class="muted">Belum ada produk di kategori ini.</p>
+        {% endif %}
+    </div>
+
+</main>
+<!-- PRODUCT DETAIL POPUP -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+
+        <span class="close-btn">&times;</span>
+
+        <img id="modalImg" class="modal-img" />
+
+        <div class="modal-info">
+            <div>
+                <h2 id="modalName"></h2>
+                <p id="modalCategory" class="muted"></p>
+                <p id="modalPrice" class="price"></p>
+                <p id="modalDesc" class="muted"></p>
+            </div>
+
+            <a id="modalWa" target="_blank"  style="text-decoration:none;">
+                <div style="font-size: 14px; background:#25D366; color:white; padding:12px 10px; 
+                            display:inline-flex; align-items:center; border-radius:6px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+                        style="width:20px; margin-right:8px;">
+                    Chat WhatsApp
+                </div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

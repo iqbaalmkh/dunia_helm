@@ -1,0 +1,104 @@
+{% extends "system/base.html" %}
+{% block content %}
+
+<div class="card">
+  <h3>Laporan Pendapatan (per bulan)</h3>
+  <table class="table">
+    <thead><tr><th>Bulan</th><th>Total</th></tr></thead>
+    <tbody>
+      {% for month, total in sales %}
+        <tr><td>{{ month }}</td><td>Rp {{ "{:,.0f}".format(total) }}</td></tr>
+      {% else %}
+        <tr><td colspan="2" class="muted">Belum ada data</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="card table-card">
+
+  <!-- HEADER -->
+  <div class="card-header">
+    <h3>Analisis Stok & Rekomendasi Order</h3>
+    <small>Lead Time: 4 Hari • Holding Cost: 10%</small>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrapper">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th class="center">Stok</th>
+          <th class="center">Forecast<br><small>Bulan Depan</small></th>
+          <th class="center danger">ROP</th>
+          <th class="center info">EOQ</th>
+          <th class="center">Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for item in inventory_report %}
+        <tr class="{% if item.stock <= item.rop %}row-danger{% endif %}">
+          <td>
+            <div class="product-cell">
+              <div>
+                <div class="product-name">{{ item.name }}</div>
+                <div class="muted">
+                  {{ item.sku or '-' }} • Rp {{ "{:,.0f}".format(item.price) }}
+                </div>
+              </div>
+            </div>
+          </td>
+
+          <td class="center">{{ item.stock }}</td>
+          <td class="center">{{ item.forecast }}</td>
+          <td class="center strong danger">{{ item.rop }}</td>
+          <td class="center strong info2">{{ item.eoq }}</td>
+
+          <td class="center">
+            <span class="badge {{ item.status_class }}">
+              {{ item.status }}
+            </span>
+          </td>
+
+          <td class="center">
+            {% if item.stock <= item.rop %}
+              <span class="action danger">
+                Segera lakukan pemesanan
+              </span>
+            {% elif item.stock <= item.rop * 1.2 %}
+              <span class="action warning">
+                Persiapan pemesanan
+              </span>
+            {% else %}
+              <span class="action safe">
+                Monitoring rutin
+              </span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="center muted">
+            Data produk belum tersedia
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="card">
+  <h3>Produk Terlaris</h3>
+  <ol>
+    {% for name, sold in top_products %}
+      <li>{{ name }} — {{ sold }} terjual</li>
+    {% else %}
+      <li class="muted">Belum ada penjualan</li>
+    {% endfor %}
+  </ol>
+</div>
+{% endblock %}

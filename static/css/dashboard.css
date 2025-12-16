@@ -1,0 +1,31 @@
+.grid{display:grid;grid-template-columns:540px 1fr;gap:0px;margin:0 5px 0;}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:0px}
+.box{background:var(--card);border-radius:20px;padding:0;position:relative;margin:8px;}
+.lefttop{border-bottom-right-radius:0;}
+.leftbottom{border-top-right-radius:0;}
+.righttop{border-bottom-left-radius:0;}
+.rightbottom{border-top-left-radius:0;}
+
+.stat{display:flex;flex-direction:column;gap:0px;}
+.stat-header{height:100%;padding:0;gap:0;display:flex;flex-direction:row;justify-content:space-between;align-items:flex-start;}
+.stat-title{font-size:18px;font-weight:500;color:white;padding:20px;}
+.stat-value{font-size:28px;font-weight:600;margin-bottom:35px;padding:30px;}
+.stat-sub{font-size:12px;color:var(--muted);display:none;}
+
+.stat-icon{width:50px;height:50px;border-radius:50%;background:rgba(var(--primary-rgb),0.5);display:flex;justify-content:center;align-items:center;margin:5px;}
+.stat-icon svg{width:30px;height:30px;stroke:white;stroke-width:2;display:inline-block;}
+.stat-icon.big{width:70px;height:70px;font-size:16px;}
+.stat-icon.big svg{width:40px;height:40px;stroke-width:2.5;}
+
+.chart-wrapper{height:350px;}
+.chart-wrapper canvas{width:100% !important;height:100% !important;display:block;}
+#revenueChart{padding:10px;}
+
+.graph{border-bottom-left-radius: 0;}
+.graph-header{display:flex;justify-content:space-between;align-items:center;}
+.graph h3{margin:0;font-size:30px;padding:10px 20px;font-weight: 500;}
+
+.product-list{display:flex;gap:12px;flex-wrap:wrap}
+.product{background:var(--secondary-bg);padding:10px;border-radius:8px;width:calc(33% - 8px);min-width:150px}
+.product-img{width:100%;height:150px;object-fit:cover;border-radius:10px;margin-bottom:8px}
+.thumb{width:40px;height:40px;object-fit:cover;border-radius:6px;margin-right:6px}

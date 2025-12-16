@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root{
+  --bg:#010003;
+  --secondary-bg:#151515;
+  --card:#1d1d1d;
+  --muted:#7d86a0;
+  --accent:#ffffff;
+  --primary:#E50D25;
+  --primary-rgb:229,13,37;
+  --accent-2:#00a86b;
+  --shadow: 0 6px 18px rgba(15,23,36,0.06);
+  --font-family: 'Lexend', system-ui, -apple-system, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+  font-family: var(--font-family);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background:var(--bg);
+  color:var(--accent);
+  font-weight: 400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+button {
+  font-family: inherit;
+}

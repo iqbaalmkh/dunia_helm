@@ -1,0 +1,97 @@
+{% extends "system/base.html" %}
+{% block content %}
+
+<div class="card">
+  <div class="flex-between">
+    <h3>Daftar Produk</h3>
+    {% if role != "owner" %}
+      <button class="btn" id="btnNew">+ Tambah Produk</button>
+    {% endif %}
+  </div>
+
+  <!-- FORM TAMBAH PRODUK -->
+  {% if role != 'owner' %}
+  <div id="newForm" class="card hidden">
+    <form method="post" action="{{ url_for('add_product') }}" enctype="multipart/form-data">
+      <label>Nama <input name="name" required /></label>
+      <label>SKU <input name="sku" /></label>
+      <label>Harga <input name="price" type="number" required /></label>
+      <label>Kategori <input name="category" /></label>
+      <label>Stok awal <input name="stock" type="number" /></label>
+      <label>Deskripsi <textarea name="description"></textarea></label>
+
+      <!-- FOTO PRODUK -->
+      <label>Foto Produk
+        <input type="file" name="image" accept="image/*">
+      </label>
+
+      <div class="actions">
+        <button class="btn primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+
+  <!-- TABLE PRODUK -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Produk</th>
+        <th>SKU</th>
+        <th>Kategori</th>
+        <th>Harga</th>
+        <th>Stok</th>
+        {% if role != "owner" %}
+        <th>Aksi</th>
+        {% endif %}
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for p in products %}
+      <tr>
+
+        <!-- KOLOM PRODUK + FOTO -->
+        <td>
+          <div class="product-cell">
+            {% if p.image %}
+              <img src="{{ url_for('static', filename='uploads/products/' + p.image) }}" class="thumb">
+            {% endif %}
+            <span class="product-name">{{ p.name }}</span>
+          </div>
+        </td>
+        <td>{{ p.sku or '-' }}</td>
+        <td>{{ p.category }}</td>
+        <td>Rp {{ "{:,.0f}".format(p.price) }}</td>
+        <td>{{ p.stock }}</td>
+
+        {% if role != "owner" %}
+        <td>
+          <button class="btn small" onclick="openPanel('{{ p.id }}')">Kelola</button>
+        </td>
+        {% endif %}
+
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+{% if role != 'owner' %}
+<div id="sidePanel" class="side-panel hidden">
+  <div class="side-panel-content">
+
+    <button id="closePanelBtn" class="close-btn">✕</button>
+
+    <h3>Kelola Produk</h3>
+
+    <!-- TEMPAT FORM DINAMIS -->
+    <div id="panelContent"></div>
+
+  </div>
+</div>
+
+<div id="overlay" class="overlay hidden" onclick="closePanel()"></div>
+{% endif %}
+{% endblock %}

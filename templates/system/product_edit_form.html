@@ -1,0 +1,18 @@
+<form method="post" action="{{ url_for('update_product', id=p.id) }}" enctype="multipart/form-data">
+  <label>Nama <input name="name" value="{{ p.name }}"></label>
+  <label>SKU <input name="sku" value="{{ p.sku }}"></label>
+  <label>Harga <input name="price" value="{{ p.price }}"></label>
+  <label>Kategori <input name="category" value="{{ p.category }}"></label>
+  <label>Stok <input name="stock" value="{{ p.stock }}"></label>
+  <label>Deskripsi <textarea name="description">{{ p.description }}</textarea></label>
+
+  <label>Foto Baru
+    <input type="file" name="image">
+  </label>
+
+  <button class="btn primary">Simpan</button>
+</form>
+
+<form method="post" action="{{ url_for('delete_product', id=p.id) }}" style="margin-top:20px">
+  <button class="btn danger">Hapus Produk</button>
+</form>

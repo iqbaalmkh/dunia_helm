@@ -1,0 +1,33 @@
+{% extends "system/base.html" %}
+{% block content %}
+{% if role != 'owner' %}
+<div class="card">
+  <h3>Input Penjualan</h3>
+  <form method="post" action="{{ url_for('add_sale') }}" class="form-inline">
+    <select name="product_id" required>
+      <option value="">Pilih produk</option>
+      {% for p in products %}
+        <option value="{{ p.id }}">{{ p.name }} — Stok: {{ p.stock }}</option>
+      {% endfor %}
+    </select>
+    <input name="qty" type="number" min="1" value="1" />
+    <input type="datetime-local" name="created_at" required>
+    <button class="btn primary">Simpan</button>
+  </form>
+</div>
+{% endif %}
+
+<div class="card">
+  <h3>Riwayat Penjualan</h3>
+  <table class="table">
+    <thead><tr><th>Tgl</th><th>Produk</th><th>Qty</th><th>Total</th></tr></thead>
+    <tbody>
+      {% for s in sales %}
+        <tr><td>{{ s.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td>{{ s.product.name }}</td><td>{{ s.qty }}</td><td>Rp {{ "{:,.0f}".format(s.total) }}</td></tr>
+      {% else %}
+        <tr><td colspan="4" class="muted">Belum ada penjualan</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

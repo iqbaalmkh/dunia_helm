@@ -1,0 +1,13 @@
+<form method="post" action="{{ url_for('update_staff', id=s.id) }}" enctype="multipart/form-data">
+  <label>Nama <input name="name" value="{{ s.name }}"></label>
+  <label>Posisi <input name="role" value="{{ s.role }}" disabled class="input-disabled"></label>
+  <label>Email <input name="email" value="{{ s.email }}" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required ></label>
+  <label>Phone <input name="phone" value="{{ s.phone }}" type="tel" placeholder="08xxxxxxxxxx" pattern="[0-9]{10,15}" required></label>
+  <label>Mulai Bekerja <input name="created_at" type="datetime-local" value="{{ s.created_at }}"></label>
+
+  <button class="btn primary">Simpan</button>
+</form>
+
+<form method="post" action="{{ url_for('delete_staff', id=s.id) }}" style="margin-top:20px">
+  <button class="btn danger">Hapus Staff</button>
+</form>

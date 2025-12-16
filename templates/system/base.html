@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dunia Helm - {{ title or "Sistem Informasi" }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    const collapsed = localStorage.getItem("sidebar-collapsed") === "true";
+    if (collapsed) {
+      document.documentElement.classList.add("sidebar-collapsed");
+    }
+  </script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="preload">
+  <div class="app">
+    {% if user %}
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="sidebar-head">
+          <div class="brand">
+            Dunia <span>Helm</span>
+          </div>
+          <button id="toggleSidebar" class="hamburger hb-color">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+        <nav>
+          <a href="{{ url_for('dashboard') }}"
+            class="{{ 'active' if request.endpoint == 'dashboard' else '' }}">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="label">Dashboard</span>
+          </a>
+          <a href="{{ url_for('products') }}"
+            class="{{ 'active' if request.endpoint == 'products' else '' }}">
+            <i data-lucide="package"></i>
+            <span class="label">Produk</span>
+          </a>
+          <a href="{{ url_for('sales') }}"
+            class="{{ 'active' if request.endpoint == 'sales' else '' }}">
+            <i data-lucide="shopping-cart"></i>
+            <span class="label">Penjualan</span>
+          </a>
+          <a href="{{ url_for('returns') }}"
+            class="{{ 'active' if request.endpoint == 'returns' else '' }}">
+            <i data-lucide="rotate-ccw"></i>
+            <span class="label">Retur</span>
+          </a>
+          <a href="{{ url_for('reports') }}"
+            class="{{ 'active' if request.endpoint == 'reports' else '' }}">
+            <i data-lucide="bar-chart-2"></i>
+            <span class="label">Laporan</span>
+          </a>
+          {% if role in ['owner', 'developer'] %}
+          <a href="{{ url_for('staff_page') }}"
+            class="{{ 'active' if request.endpoint == 'staff' else '' }}">
+            <i data-lucide="users"></i>
+            <span class="label">Staff</span>
+          </a>
+          {% endif %}
+        </nav>
+      </div>
+      <div class="sidebar-foot">
+        {% if user %}
+          <div class="who">{{ user.username }} · {{ user.role }}</div>
+          <a class="passwordbtn" href="{{ url_for('change_password') }}">Ubah Password</a>
+          <a class="btn-ghost" href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+      </div>
+    </aside>
+    {% endif %}
+
+    <main class="main">
+      {% if user %}
+      <header class="topbar">
+        <h1>{{ title or "Halaman" }}</h1>
+        <div class="top-actions">
+          <i data-lucide="search"></i>
+          <input id="search" placeholder="Cari produk..." value="{{ search or '' }}">
+        </div>
+      </header>
+      {% endif %}
+
+      <section class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="alerts">
+              {% for cat, msg in messages %}
+                <div class="alert {{ cat }}">{{ msg }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+      </section>
+
+      <footer class="footer">
+        &copy; {{ (2025) }} Dunia Helm — Kelompok 1 APSI
+      </footer>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

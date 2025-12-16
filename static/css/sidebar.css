@@ -1,0 +1,205 @@
+/* ================================
+   SIDEBAR DEFAULT
+   ================================ */
+.sidebar {
+    width: 220px;
+    background: var(--secondary-bg);
+    padding: 28px;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s ease, padding 0.3s ease;
+    overflow: hidden;
+}
+
+.brand {font-weight: 700;font-size: 20px;transition: opacity 0.3s ease;}
+.brand span {color: var(--primary);}
+
+.sidebar-top {display: flex;flex-direction: column;}
+.sidebar-top nav {
+    margin-top: 10px;      /* mepet ke head */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    height: 60px;
+    transition: padding 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.label {
+  display: inline-block;
+  white-space: nowrap;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease;
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.sidebar nav {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar nav a:hover {background: rgba(255, 255, 255, 0.1);}
+
+/* Semua SVG default: konsisten tinggi, width auto */
+.sidebar nav svg {
+  flex-shrink: 0;
+  height: 24px;
+  width: 24px;
+  display: block;
+}
+
+/* FOOTER */
+.sidebar-foot {
+  margin-top: 18px;
+}
+
+.sidebar-foot .btn-ghost {
+  background: var(--card);
+  border: 0;
+  color: white;
+  padding: 8px 10px;
+  border-radius: 10px;
+  margin: 0;
+  text-decoration: none;
+}
+
+.sidebar-foot .btn-ghost:hover {
+  background: rgb(255, 46, 46);
+}
+
+.sidebar-foot .who {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  transition: opacity 0.1s ease;
+  text-decoration: none;
+}
+
+.sidebar-foot .passwordbtn {
+  display: flex;
+  color: white;
+  padding-bottom: 30px;
+}
+
+/* HAMBURGER */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  transition: margin 0.3s ease;
+}
+
+.hamburger i {
+  width: 24px;
+  height: 24px;
+}
+
+.hamburger svg {
+  stroke: #fff;
+}
+
+/* ================================
+   SIDEBAR COLLAPSED
+   ================================ */
+.sidebar.collapsed {
+  width: 110px;
+  padding: 28px 12px;
+  transition: width 0.3s ease, padding 0.3s ease;
+}
+
+.sidebar.collapsed .label {
+  opacity: 0;
+  transform: translateX(-10px); /* lebih kecil supaya tidak terlalu 'melompat' */
+  visibility: hidden;
+  /* Jangan ubah font-size supaya text height & line-height tetap */
+}
+
+.sidebar.collapsed .sidebar-head .brand {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .who {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar.collapsed .hamburger {
+  margin: 0;
+  transform: translate(-53px);
+  transition: margin 0.3s ease, transform 0.3s ease;
+}
+
+.sidebar.collapsed nav a {
+  justify-content: center;
+  padding: 8px 0;
+  gap: 0;
+  font-size: 0px; /* biar ikon tetap konsisten */
+  width: 100%;     /* supaya sama dengan hamburger */
+  box-sizing: border-box; /* agar padding tidak bikin lebar bertambah */
+  transition: padding 0.3s ease;
+}
+
+/* ICON tetap konsisten */
+.sidebar.collapsed nav svg {
+    height: 24px;
+    width: 24px;
+    display: block;       /* hilangkan inline spacing */
+    flex-shrink: 0; /* memastikan center vertikal */
+    }
+
+
+.sidebar nav a.active {
+  color: #e50d25;
+  font-weight: 600;
+}
+
+.sidebar nav a.active i {
+  color: #e50d25;
+}
+
+/* SEMUA animasi/transition dimatikan sementara */
+.no-transition * {
+  transition: none !important;
+  animation: none !important;
+}

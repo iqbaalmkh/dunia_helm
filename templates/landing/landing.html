@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HELLMETZ</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+</head>
+<body>
+  <!-- NAVBAR / LOGO -->
+  <header class="topbar">
+    <a class="logo" href="{{ url_for('index') }}" ><span>DUNIA</span>HELM</a>
+      <!-- SEARCH BAR -->
+    <form action="{{ url_for('search') }}" method="get" class="search-bar">
+        <input type="text" name="q" placeholder="Cari produk..." value="{{ request.args.get('q', '') }}">
+        <button type="submit">Cari</button>
+    </form>
+    <a href="{{ url_for('login') }}" class="btn-login">
+      <i data-lucide="user"></i>
+    </a>
+  </header>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  {% block navbar %}
+  <div class="navbar">
+      <a href="{{ url_for('beranda') }}"
+        class="nav-item {% if active_page in ['beranda', 'index'] %}active{% endif %}">
+          Beranda
+      </a>
+
+      <a href="{{ url_for('tentang') }}"
+        class="nav-item {% if active_page == 'tentang' %}active{% endif %}">
+          Tentang
+      </a>
+      
+      <a href="{{ url_for('category_page', category_name='Semua') }}"
+        class="nav-item {% if active_page in ['produk', 'category_page']%}active{% endif %}">
+          Produk
+      </a>
+
+      <a href="{{ url_for('kontak') }}"
+        class="nav-item {% if active_page == 'kontak' %}active{% endif %}">
+          Kontak
+      </a>
+  </div>
+  {% endblock %}
+
+  {% block carousel %}
+  <!-- ==== CAROUSEL SECTION ==== -->
+  <div class="carousel-container">
+      <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='uploads/landing/1.jpg') }}" alt="Slide 1">
+      </div>
+
+      <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='uploads/landing/2.png') }}" alt="Slide 2">
+      </div>
+
+      <div class="carousel-slide fade">
+          <img src="{{ url_for('static', filename='uploads/landing/3.png') }}" alt="Slide 3">
+      </div>
+
+      <!-- BUTTON PREV / NEXT -->
+      <button class="carousel-btn prev" onclick="manualSlide(-1)">&#10094;</button>
+      <button class="carousel-btn next" onclick="manualSlide(1)">&#10095;</button>
+
+      <div class="carousel-dots" id="carouselDots"></div>
+
+  </div>
+  {% endblock %}
+
+  {% block catalog %}
+  <section class="catalog-section">
+    <h2 class="section-title">Kategori Produk</h2>
+    
+    <div class="catalog-grid">
+        <div class="card card-wide card-accent">
+        <div class="card-content">
+            <h3>NEW ARRIVAL</h3>
+            <a href="{{ url_for('category_page', category_name='New Arrival') }}" class="btn-card">Lihat Detail</a>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/landing/fullface.png') }}" alt="Full Face Helmet" class="card-img img-overlap">
+        </div>
+
+        <div class="card card-acc">
+        <div class="card-content">
+            <h3>AKSESORIS</h3>
+            <a href="{{ url_for('category_page', category_name='Aksesoris') }}" class="btn-card-outline">Browse →</a>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/landing/acc.png') }}" alt="Accessories" class="card-img img-acc">
+        </div>
+
+        <div class="card card-tall">
+        <div class="card-content">
+            <h3>HALF FACE</h3>
+            <a href="{{ url_for('category_page', category_name='Half Face') }}" class="btn-card-outline">Browse →</a>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/landing/halfface.png') }}" alt="Parts" class="card-img img-right">
+        </div>
+
+        <div class="card card-girl">
+        <div class="card-content">
+            <h3>WANITA</h3>
+            <a href="{{ url_for('category_page', category_name='Wanita') }}" class="btn-card-outline">Browse →</a>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/landing/bogo.png') }}" alt="Apparel" class="card-img img-girl">
+        </div>
+
+        <div class="card card-wide">
+        <div class="card-content">
+            <h3>FULL FACE</h3>
+            <a href="{{ url_for('category_page', category_name='Full Face') }}" class="btn-card-outline">Browse →</a>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/landing/new.png') }}" alt="Retro Helmet" class="card-img img-bottom">
+        </div>
+
+    </div>
+    </section>
+    {% endblock %}
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h2 class="footer-title">Dunia Helm</h2>
+    <p>© Copyrights - Kelompok 1 APSI 2025</p>
+  </footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

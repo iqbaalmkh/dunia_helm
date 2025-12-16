@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h3>Stok Produk</h3>
+  <table class="table">
+    <thead><tr><th>Produk</th><th>Stok</th><th>Aksi</th></tr></thead>
+    <tbody>
+      {% for p in products %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.stock }}</td>
+        <td>
+          <form method="post" action="{{ url_for('adjust_stock', id=p.id) }}" style="display:flex;gap:.5rem;align-items:center">
+            <input type="number" name="delta" placeholder="+/-" required style="width:80px"/>
+            <input name="note" placeholder="keterangan (opsional)" />
+            <button class="btn">Update</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
